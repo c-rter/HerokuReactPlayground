@@ -7,6 +7,10 @@ import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn } from "../../components/Form";
 import { Redirect } from "react-router";
+import ImageCard from "../../components/ImageCard";
+const dayOfYear = require("day-of-year");
+var currentDay = dayOfYear();
+
 
 class Login extends Component {
   constructor(props) {
@@ -19,7 +23,9 @@ class Login extends Component {
       signupUser: "",
       signupPwd1: "",
       signupPwd2: "",
-      signupHabit: ""
+      signupHabit: "",
+
+      isHidden: true
     };
   }
 
@@ -68,7 +74,7 @@ class Login extends Component {
 
   // Sign Up Btn - Toggle Sign up form view
   handleSignUpToggle = event => {
-    console.log("Toggle View");
+    this.setState({ isHidden: !this.state.isHidden });
   };
   // Sign Up Process
   handleSignUpSubmit = event => {
@@ -77,10 +83,9 @@ class Login extends Component {
       // compare all users stored in
       for (var i = 0; i < this.state.goals.length; i++) {
         if (this.state.signupUser === this.state.goals[i].username) {
-          alert("Exit fn, User already exists. Please Login");
+          alert("User Already Exists. Please choose a different name");
           return false;
         } else if (i == this.state.goals.length - 1) {
-          alert("Save and Sign Up");
           this.state.user = this.state.signupUser;
           this.state.pwd = this.state.signupPwd1;
           this.state.habit = this.state.signupHabit;
@@ -90,8 +95,10 @@ class Login extends Component {
             password: this.state.signupPwd1,
             habit: this.state.signupHabit,
             dayCounter: 0,
-            dailyStatus: 0,
-            habitStatus: "active"
+            startDay: currentDay,
+            habitStatus: "active",
+            rollingDay: currentDay
+
           });
           this.setState({ redirect: true });
         }
@@ -113,32 +120,87 @@ class Login extends Component {
       );
     }
 
+
     return (
       <Container fluid>
-        <Input
-          value={this.state.user} //this.state.username
-          onChange={this.handleInputChange}
-          name="user"
-          placeholder="username (required)"
-        />
-        <Input
-          value={this.state.pwd} //this.state.username
-          onChange={this.handleInputChange}
-          name="pwd"
-          placeholder="password (required)"
-        />
+        <ImageCard cardImageSource="https://i.imgur.com/z7thY4a.jpg" />
         <form>
+          <Input
+            value={this.state.user} //this.state.username
+            onChange={this.handleInputChange}
+            name="user"
+            placeholder="username (required)"
+          />
+          <Input
+            value={this.state.pwd} //this.state.username
+            onChange={this.handleInputChange}
+            type="password"
+            name="pwd"
+            placeholder="password (required)"
+          />
+
           <FormBtn
             disabled={!(this.state.user && this.state.pwd)}
             onClick={this.handleFormSubmit}
           >
             Login
           </FormBtn>
-        </form>
+        </form><br /><br />
 
-        <form>
-          <FormBtn onClick={this.handleSignUpToggle}>SignUp</FormBtn>
+        <h2> Sign Up</h2>
+
+        <div>        <form>
+          <Input
+            value={this.state.signupUser} //this.state.username
+            onChange={this.handleInputChange}
+            name="signupUser"
+            placeholder="Choose a username (required)"
+          />
+          <Input
+            value={this.state.signupPwd1} //this.state.username
+            onChange={this.handleInputChange}
+            name="signupPwd1"
+            type="password"
+            placeholder="Choose a password (required)"
+          />
+          <Input
+            value={this.state.signupPwd2} //this.state.username
+            onChange={this.handleInputChange}
+            name="signupPwd2"
+            type="password"
+            placeholder="Confirm password (required)"
+          />
+          <Input
+            value={this.state.signupHabit} //this.state.username
+            onChange={this.handleInputChange}
+            name="signupHabit"
+            placeholder="Input a Habit to follow or break"
+          />
+
+          <FormBtn
+            disabled={
+              !(
+                this.state.signupUser &&
+                this.state.signupPwd2 &&
+                this.state.signupPwd2
+              )
+            }
+            onClick={this.handleSignUpSubmit}
+          >
+            Complete
+          </FormBtn>
         </form>
+        </div>
+      </Container>
+    );
+  }
+}
+
+export default Login;
+
+/* toggle code
+    const ShowForm = () => (
+      <div>        <form>
         <Input
           value={this.state.signupUser} //this.state.username
           onChange={this.handleInputChange}
@@ -163,7 +225,7 @@ class Login extends Component {
           name="signupHabit"
           placeholder="Input a Habit to follow or break"
         />
-        <form>
+
           <FormBtn
             disabled={
               !(
@@ -177,9 +239,10 @@ class Login extends Component {
             Complete
           </FormBtn>
         </form>
-      </Container>
+      </div>
     );
-  }
-}
 
-export default Login;
+            <button onClick={this.handleSignUpToggle}>SignUp</button>
+          {!this.state.isHidden && <ShowForm />}
+
+          */

@@ -24,7 +24,7 @@ const goalSeed = [
     dayCounter: 20,
     startDay: 290,
     habitStatus: "active",
-    rollingDay: 310
+    rollingDay: 312
   },
   {
     username: "carter",
@@ -33,7 +33,43 @@ const goalSeed = [
     dayCounter: 4,
     startDay: 305,
     habitStatus: "active",
-    rollingDay: 309
+    rollingDay: 312
+  },
+  {
+    username: "carter",
+    password: "password",
+    habit: "test habit",
+    dayCounter: 20,
+    startDay: 290,
+    habitStatus: "active",
+    rollingDay: 312
+  },
+  {
+    username: "carter",
+    password: "password",
+    habit: "test habit 2",
+    dayCounter: 4,
+    startDay: 305,
+    habitStatus: "achieve",
+    rollingDay: 312
+  },
+  {
+    username: "carter",
+    password: "password",
+    habit: "test habit",
+    dayCounter: 20,
+    startDay: 290,
+    habitStatus: "achieve",
+    rollingDay: 312
+  },
+  {
+    username: "carter",
+    password: "password",
+    habit: "test habit 2",
+    dayCounter: 4,
+    startDay: 305,
+    habitStatus: "fail",
+    rollingDay: 312
   },
   {
     username: "nitin",

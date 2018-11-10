@@ -7,6 +7,8 @@ import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn } from "../../components/Form";
 import Login from "../Login/Login";
+import ImageCard from "../../components/ImageCard";
+import "../Goals/Goals.css";
 
 var userValue = {};
 var passValue = {};
@@ -63,29 +65,29 @@ class HallofFame extends Component {
   render() {
     return (
       <Container fluid>
+            <Link to={{
+              pathname: "/goals/",
+              userValue: userValue,
+              passValue: passValue
+            }}><h2>BACK TO MAIN</h2></Link>
         <Row>
-          <Link to={{
-                        pathname: "/goals/",
-                        userValue: userValue,
-                        passValue: passValue }}>BACK TO MAIN</Link>
           <Col size="md-12 sm-12">
-            <Jumbotron>
-              <h1>Hall of Fame</h1>
-            </Jumbotron>
+          <ImageCard cardImageSource="https://i.imgur.com/rQjQC4t.jpg"/>
+
             {this.state.goals.length ? (
-              <List><table cellpadding="10" width="100%">
+              <List>
+              <table cellpadding="10">
                 {this.state.goals.map(goal => (
                   <tr><ListItem key={goal._id}>
-                      <td>
-                        {goal.username}
+                      <td width="400px">
+                       <b>User:</b> {goal.username}
                       </td>
-                      <td>
-                        {goal.habit}
+                      <td width="400px">
+                      <b>Habit: </b> {goal.habit}
                       </td>
-                      <td>
-                       Day Streak: {goal.dayCounter}
+                      <td width="400px">
+                     <b>Day Streak: </b>  {goal.dayCounter}
                       </td>
-
                     <DeleteBtn onClick={() => this.deleteGoal(goal._id)} />
                   </ListItem></tr>
                 ))}

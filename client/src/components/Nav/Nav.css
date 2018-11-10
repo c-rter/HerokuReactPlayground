@@ -1,0 +1,7 @@
+.navbar {
+background:linear-gradient(rgba(0, 0, 250, 0.25), rgba(125, 250, 250, 0.45)),
+url(https://i.imgur.com/3GpxZso.jpg);
+background-repeat: repeat;
+background-attachment: fixed;
+color:white !important;
+}
